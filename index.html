@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Seminario 2</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+<style>
+:root {
+--ink: #18324a;
+--muted: #627589;
+--paper: #ffffff;
+--canvas: #f3f7f9;
+--line: #dce6eb;
+--teal: #087e8b;
+--teal-dark: #05606a;
+--teal-soft: #e8f6f6;
+--coral: #ef7b67;
+--gold: #f3ba52;
+--green: #237a57;
+--green-soft: #e9f6ef;
+--red: #b64040;
+--red-soft: #fff0ef;
+--shadow: 0 14px 38px rgba(24, 50, 74, 0.10);
+--radius: 18px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+margin: 0;
+color: var(--ink);
+background:
+radial-gradient(circle at 92% 7%, rgba(243, 186, 82, 0.18), transparent 24rem),
+radial-gradient(circle at 8% 90%, rgba(8, 126, 139, 0.10), transparent 28rem),
+var(--canvas);
+font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+font-size: 17px;
+line-height: 1.62;
+}
+button, input { font: inherit; }
+.course-shell {
+min-height: 100vh;
+display: grid;
+grid-template-columns: 310px minmax(0, 1fr);
+}
+.course-sidebar {
+position: sticky;
+top: 0;
+height: 100vh;
+padding: 34px 26px;
+color: #fff;
+background: linear-gradient(165deg, #16354e 0%, #0b6570 100%);
+overflow-y: auto;
+}
+.brand-mark {
+width: 48px;
+height: 48px;
+display: grid;
+place-items: center;
+margin-bottom: 20px;
+border: 1px solid rgba(255,255,255,.34);
+border-radius: 14px;
+background: rgba(255,255,255,.10);
+font-weight: 800;
+letter-spacing: .04em;
+}
+.course-sidebar h1 {
+margin: 0;
+color: #fff;
+font-size: 1.55rem;
+line-height: 1.22;
+}
+.course-year {
+margin: 10px 0 28px;
+color: rgba(255,255,255,.72);
+font-size: .94rem;
+}
+.topic-nav {
+display: grid;
+gap: 9px;
+}
+.topic-link {
+width: 100%;
+display: grid;
+grid-template-columns: 30px 1fr 12px;
+align-items: center;
+gap: 10px;
+padding: 12px 12px;
+border: 0;
+border-radius: 12px;
+color: rgba(255,255,255,.80);
+background: transparent;
+text-align: left;
+cursor: pointer;
+transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.topic-link:hover,
+.topic-link:focus-visible {
+color: #fff;
+background: rgba(255,255,255,.11);
+outline: none;
+}
+.topic-link.active {
+color: #fff;
+background: rgba(255,255,255,.17);
+box-shadow: inset 3px 0 0 var(--gold);
+}
+.topic-link .nav-number {
+display: grid;
+place-items: center;
+width: 28px;
+height: 28px;
+border-radius: 50%;
+background: rgba(255,255,255,.12);
+font-size: .84rem;
+font-weight: 800;
+}
+.topic-link .nav-text {
+font-size: .92rem;
+font-weight: 650;
+line-height: 1.25;
+}
+.topic-link .nav-status {
+width: 9px;
+height: 9px;
+border: 2px solid rgba(255,255,255,.42);
+border-radius: 50%;
+}
+.topic-link.complete .nav-status {
+border-color: #8ce0bd;
+background: #8ce0bd;
+}
+.progress-wrap { margin-top: 28px; }
+.progress-label {
+display: flex;
+justify-content: space-between;
+gap: 12px;
+margin-bottom: 8px;
+color: rgba(255,255,255,.72);
+font-size: .82rem;
+}
+.progress-track {
+height: 7px;
+border-radius: 999px;
+background: rgba(255,255,255,.15);
+overflow: hidden;
+}
+.progress-fill {
+width: 0;
+height: 100%;
+border-radius: inherit;
+background: linear-gradient(90deg, var(--gold), #ffe4a7);
+transition: width .25s ease;
+}
+.reset-button {
+margin-top: 20px;
+padding: 0;
+border: 0;
+color: rgba(255,255,255,.72);
+background: transparent;
+font-size: .86rem;
+cursor: pointer;
+}
+.reset-button:hover { color: #fff; text-decoration: underline; }
+.course-main {
+width: min(1040px, 100%);
+margin: 0 auto;
+padding: 52px 56px 42px;
+}
+.hero {
+position: relative;
+margin-bottom: 30px;
+padding: 31px 34px;
+border: 1px solid rgba(8,126,139,.12);
+border-radius: var(--radius);
+background: linear-gradient(135deg, #fff 0%, #f2fbfb 100%);
+box-shadow: var(--shadow);
+overflow: hidden;
+}
+.hero::after {
+content: "";
+position: absolute;
+right: -58px;
+top: -72px;
+width: 190px;
+height: 190px;
+border: 24px solid rgba(8,126,139,.08);
+border-radius: 50%;
+}
+.eyebrow {
+margin: 0 0 6px;
+color: var(--teal-dark);
+font-size: .78rem;
+font-weight: 800;
+letter-spacing: .12em;
+text-transform: uppercase;
+}
+.hero h2 {
+position: relative;
+z-index: 1;
+margin: 0;
+color: var(--ink);
+font-size: clamp(1.75rem, 3.2vw, 2.65rem);
+line-height: 1.13;
+letter-spacing: -.035em;
+}
+.hero p:last-child {
+position: relative;
+z-index: 1;
+max-width: 720px;
+margin: 14px 0 0;
+color: var(--muted);
+}
+.topic-panel { display: none; animation: enter .28s ease both; }
+.topic-panel.active { display: block; }
+@keyframes enter {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.section-kicker {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 7px;
+color: var(--teal-dark);
+font-size: .84rem;
+font-weight: 800;
+letter-spacing: .08em;
+text-transform: uppercase;
+}
+.section-kicker::before {
+content: "";
+width: 26px;
+height: 3px;
+border-radius: 999px;
+background: var(--coral);
+}
+.topic-panel > h2 {
+margin: 0 0 18px;
+font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+line-height: 1.2;
+letter-spacing: -.025em;
+}
+.lead {
+margin: 0 0 24px;
+color: var(--muted);
+font-size: 1.06rem;
+}
+.info-card,
+.scenario-card,
+.quiz-question {
+border: 1px solid var(--line);
+border-radius: var(--radius);
+background: var(--paper);
+box-shadow: 0 7px 22px rgba(24,50,74,.055);
+}
+.info-card { padding: 24px 26px; }
+.objectives-card {
+margin: 22px 0;
+padding: 22px 25px;
+border: 1px solid #d6e5ea;
+border-radius: var(--radius);
+background: linear-gradient(135deg, #ffffff 0%, #f5fbfc 100%);
+}
+.objectives-card h3,
+.abstract-card h3 { margin: 0 0 12px; font-size: 1.16rem; }
+.objectives-card ul { margin: 0; padding-left: 1.25rem; }
+.objectives-card li { margin: 7px 0; }
+.abstract-card {
+margin-top: 25px;
+padding: 27px 28px;
+border: 1px solid var(--line);
+border-radius: var(--radius);
+background: #fff;
+box-shadow: var(--shadow);
+}
+.abstract-header {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+gap: 18px;
+margin-bottom: 17px;
+padding-bottom: 17px;
+border-bottom: 1px solid var(--line);
+}
+.abstract-header h3 { margin: 0; }
+.article-link {
+flex: 0 0 auto;
+display: inline-flex;
+align-items: center;
+padding: 8px 13px;
+border-radius: 10px;
+color: #fff;
+background: var(--teal);
+font-size: .86rem;
+font-weight: 750;
+text-decoration: none;
+}
+.article-link:hover,
+.article-link:focus { color: #fff; background: var(--teal-dark); text-decoration: none; }
+.abstract-section { margin: 16px 0; }
+.abstract-section:last-of-type { margin-bottom: 0; }
+.abstract-section strong { color: var(--teal-dark); }
+.citation {
+margin: 20px 0 0;
+padding-top: 16px;
+border-top: 1px dashed #cbd9df;
+color: var(--muted);
+font-size: .83rem;
+line-height: 1.45;
+}
+.part-intro {
+margin-bottom: 27px;
+padding: 20px 23px;
+border-left: 5px solid var(--coral);
+border-radius: 0 14px 14px 0;
+background: #fff5f2;
+}
+.part-intro p { margin: 0; }
+.picot-grid {
+display: grid;
+grid-template-columns: repeat(5, minmax(0, 1fr));
+gap: 12px;
+margin: 22px 0 28px;
+}
+.picot-item {
+min-height: 112px;
+padding: 16px;
+border: 1px solid var(--line);
+border-radius: 15px;
+background: #fff;
+}
+.picot-letter {
+display: inline-grid;
+place-items: center;
+width: 35px;
+height: 35px;
+margin-bottom: 9px;
+border-radius: 10px;
+color: #fff;
+background: var(--teal);
+font-weight: 850;
+}
+.picot-item:nth-child(2) .picot-letter { background: #3078a8; }
+.picot-item:nth-child(3) .picot-letter { background: #8367a7; }
+.picot-item:nth-child(4) .picot-letter { background: #d16d58; }
+.picot-item:nth-child(5) .picot-letter { background: #b18328; }
+.picot-item strong { display: block; font-size: .95rem; }
+.picot-item span { color: var(--muted); font-size: .84rem; }
+.prompt-list { margin: 0; padding-left: 1.25rem; }
+.prompt-list li { margin: 10px 0; padding-left: 5px; }
+.subheading {
+margin: 34px 0 14px;
+font-size: 1.25rem;
+line-height: 1.32;
+}
+.scenario-list { display: grid; gap: 14px; }
+.scenario-card {
+display: grid;
+grid-template-columns: 42px minmax(0, 1fr);
+gap: 14px;
+padding: 19px 22px;
+}
+.scenario-number {
+display: grid;
+place-items: center;
+width: 38px;
+height: 38px;
+border-radius: 12px;
+color: var(--teal-dark);
+background: var(--teal-soft);
+font-weight: 850;
+}
+.scenario-card p { margin: 0; }
+.discussion-card {
+margin-top: 18px;
+padding: 22px 25px;
+border-left: 5px solid var(--gold);
+border-radius: 0 14px 14px 0;
+background: #fffaf0;
+}
+.discussion-card h3 { margin: 0 0 8px; font-size: 1.08rem; }
+.discussion-card p { margin: 0; }
+.data-card {
+margin: 20px 0 26px;
+padding: 24px;
+border: 1px solid var(--line);
+border-radius: var(--radius);
+background: #fff;
+box-shadow: var(--shadow);
+}
+.study-table {
+width: 100%;
+border-collapse: separate;
+border-spacing: 0;
+overflow: hidden;
+border: 1px solid var(--line);
+border-radius: 13px;
+}
+.study-table th,
+.study-table td { padding: 13px 15px; text-align: right; }
+.study-table th:first-child,
+.study-table td:first-child { text-align: left; }
+.study-table thead th { color: #fff; background: var(--ink); font-size: .9rem; }
+.study-table tbody tr:nth-child(even) { background: #f7fafb; }
+.study-table tbody th { color: var(--ink); }
+.quiz-intro {
+display: flex;
+align-items: flex-start;
+gap: 11px;
+margin: 18px 0 20px;
+padding: 14px 16px;
+border: 1px solid #cde3e5;
+border-radius: 13px;
+color: var(--teal-dark);
+background: var(--teal-soft);
+font-size: .93rem;
+}
+.quiz-intro strong { white-space: nowrap; }
+.quiz-list { display: grid; gap: 18px; }
+.quiz-question { padding: 23px 24px; transition: border-color .2s ease; }
+.quiz-question.is-correct { border-color: #83c9a8; }
+.quiz-question.is-incorrect { border-color: #e0a29d; }
+.question-title {
+display: grid;
+grid-template-columns: 34px minmax(0, 1fr);
+gap: 11px;
+align-items: start;
+margin: 0 0 16px;
+font-weight: 760;
+line-height: 1.42;
+}
+.question-number {
+display: grid;
+place-items: center;
+width: 32px;
+height: 32px;
+border-radius: 10px;
+color: #fff;
+background: var(--teal);
+font-size: .88rem;
+font-weight: 850;
+}
+fieldset { margin: 0; padding: 0; border: 0; }
+.option {
+position: relative;
+display: grid;
+grid-template-columns: 24px minmax(0, 1fr);
+gap: 10px;
+align-items: start;
+margin: 8px 0;
+padding: 11px 13px;
+border: 1px solid transparent;
+border-radius: 11px;
+cursor: pointer;
+transition: background .16s ease, border-color .16s ease;
+}
+.option:hover { border-color: #c6dde1; background: #f7fbfc; }
+.option:has(input:checked) { border-color: #78bac1; background: var(--teal-soft); }
+.option input {
+width: 18px;
+height: 18px;
+margin: 4px 0 0;
+accent-color: var(--teal);
+}
+.option span { line-height: 1.45; }
+.question-actions {
+display: flex;
+align-items: center;
+gap: 13px;
+margin-top: 17px;
+}
+.check-answer,
+.nav-button {
+border: 0;
+border-radius: 11px;
+color: #fff;
+background: var(--teal);
+font-weight: 750;
+cursor: pointer;
+transition: background .16s ease, transform .16s ease;
+}
+.check-answer { padding: 10px 17px; font-size: .92rem; }
+.check-answer:hover,
+.nav-button:hover { background: var(--teal-dark); transform: translateY(-1px); }
+.feedback {
+min-height: 1.5em;
+color: var(--muted);
+font-size: .91rem;
+line-height: 1.45;
+}
+.feedback.correct { color: var(--green); }
+.feedback.incorrect { color: var(--red); }
+.topic-controls {
+display: flex;
+justify-content: space-between;
+gap: 14px;
+margin-top: 34px;
+padding-top: 22px;
+border-top: 1px solid var(--line);
+}
+.nav-button { min-width: 132px; padding: 11px 18px; }
+.nav-button.secondary { color: var(--teal-dark); background: var(--teal-soft); }
+.nav-button.secondary:hover { background: #d7eeef; }
+.nav-button[hidden] { visibility: hidden; }
+.source-note {
+margin-top: 22px;
+color: var(--muted);
+font-size: .85rem;
+}
+@media (max-width: 980px) {
+.course-shell { grid-template-columns: 1fr; }
+.course-sidebar {
+position: relative;
+height: auto;
+padding: 22px;
+}
+.brand-mark { float: left; margin: 0 14px 12px 0; }
+.course-sidebar h1 { font-size: 1.25rem; }
+.course-year { margin-bottom: 18px; }
+.topic-nav { grid-template-columns: repeat(4, minmax(0, 1fr)); clear: both; }
+.topic-link { grid-template-columns: 26px 1fr; }
+.topic-link .nav-status { display: none; }
+.progress-wrap, .reset-button { display: none; }
+.course-main { padding: 32px 24px; }
+}
+@media (max-width: 700px) {
+body { font-size: 16px; }
+.topic-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.course-main { padding: 24px 15px 32px; }
+.hero { padding: 24px 22px; }
+.picot-grid { grid-template-columns: 1fr 1fr; }
+.picot-item:last-child { grid-column: 1 / -1; }
+.abstract-header { flex-direction: column; }
+.article-link { align-self: stretch; justify-content: center; }
+.scenario-card { grid-template-columns: 34px minmax(0, 1fr); padding: 17px; }
+.scenario-number { width: 32px; height: 32px; }
+.study-table { font-size: .82rem; }
+.study-table th, .study-table td { padding: 10px 8px; }
+.quiz-question { padding: 19px 16px; }
+.question-actions { align-items: flex-start; flex-direction: column; }
+}
+@media print {
+body { background: #fff; }
+.course-shell { display: block; }
+.course-sidebar, .topic-controls, .check-answer { display: none !important; }
+.course-main { width: 100%; padding: 0; }
+.hero, .info-card, .scenario-card, .data-card, .quiz-question { box-shadow: none; }
+.topic-panel { display: block !important; break-before: page; animation: none; }
+.feedback { display: none; }
+}
+</style>
+<div class="course-shell">
+<aside class="course-sidebar" aria-label="Navegación del seminario">
+  <div class="brand-mark" aria-hidden="true">UdL</div>
+  <h1>Seminario 2<br>Diseño de estudios</h1>
+  <p class="course-year">Bioestadística · Grado en Medicina 2026–27</p>
+
+  <nav class="topic-nav" aria-label="Ejercicios">
+    <button type="button" class="topic-link active" data-topic="exercise-1">
+      <span class="nav-number">1</span><span class="nav-text">Enfoque PICOT</span><span class="nav-status"></span>
+    </button>
+    <button type="button" class="topic-link" data-topic="exercise-2">
+      <span class="nav-number">2</span><span class="nav-text">Identificar diseños</span><span class="nav-status"></span>
+    </button>
+    <button type="button" class="topic-link" data-topic="exercise-3">
+      <span class="nav-number">3</span><span class="nav-text">Preguntas sobre diseños</span><span class="nav-status"></span>
+    </button>
+    <button type="button" class="topic-link" data-topic="exercise-4">
+      <span class="nav-number">4</span><span class="nav-text">Diseños experimentales</span><span class="nav-status"></span>
+    </button>
+  </nav>
+
+  <div class="progress-wrap" aria-label="Progreso del cuestionario">
+    <div class="progress-label"><span>Progreso</span><span id="progress-count">0 / 8</span></div>
+    <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+  </div>
+  <button type="button" id="reset-course" class="reset-button">Reiniciar</button>
+</aside>
+<main class="course-main">
+  <header class="hero">
+    <p class="eyebrow">Bioestadística · Seminario 2</p>
+    <h2>Diseño de estudios y enfoque PICOT</h2>
+  </header>
+
+  <section id="exercise-1" class="topic-panel active" data-index="0">
+    <p class="lead">En este segundo seminario de Bioestadística continuaremos trabajando conceptos relacionados con los diseños de estudio. En la primera parte abordaremos el enfoque PICOT, mientras que en la segunda nos centraremos en el diseño de los estudios.</p>
+
+    <div class="objectives-card">
+      <h3>Al final de la práctica deberíais ser capaces de:</h3>
+      <ul>
+        <li>Formular preguntas clínicas estructuradas utilizando el enfoque PICOT.</li>
+        <li>Diferenciar los principales tipos de diseños de estudio.</li>
+        <li>Determinar el diseño de estudio adecuado para la pregunta de investigación.</li>
+        <li>Evaluar críticamente qué diseño proporciona una evidencia más sólida en distintos escenarios clínicos.</li>
+      </ul>
+    </div>
+
+    <div class="section-kicker">Parte I · Ejercicio 1</div>
+    <h2>El enfoque PICOT</h2>
+
+    <p>El ejercicio consiste en identificar y analizar los cinco componentes del enfoque PICOT en el resumen científico (<em>abstract</em>) de un estudio clínico real.</p>
+
+    <div class="picot-grid" aria-label="Componentes PICOT">
+      <div class="picot-item"><span class="picot-letter">P</span><strong>Población</strong><span>¿A quién se estudia?</span></div>
+      <div class="picot-item"><span class="picot-letter">I</span><strong>Intervención</strong><span>¿Qué tratamiento o exposición?</span></div>
+      <div class="picot-item"><span class="picot-letter">C</span><strong>Comparador</strong><span>¿En comparación con qué?</span></div>
+      <div class="picot-item"><span class="picot-letter">O</span><strong>Resultados</strong><span>¿Qué se mide?</span></div>
+      <div class="picot-item"><span class="picot-letter">T</span><strong>Tiempo</strong><span>¿Durante cuánto tiempo?</span></div>
+    </div>
+
+    <div class="info-card">
+      <p><strong>Identificad los elementos clave respondiendo a las siguientes preguntas:</strong></p>
+      <ul class="prompt-list">
+        <li>¿Cuál es la población diana del estudio?</li>
+        <li>¿Qué intervención —o exposición— se evalúa? ¿Está bien especificada?</li>
+        <li>¿Existe un grupo comparador? ¿Está bien definido?</li>
+        <li>¿Los resultados de la intervención o exposición están bien definidos? ¿Cuál es el resultado principal? ¿Se mencionan resultados secundarios?</li>
+        <li>¿Está bien especificada la duración del estudio?</li>
+      </ul>
+    </div>
+
+    <article class="abstract-card">
+      <div class="abstract-header">
+        <div><p class="eyebrow">Estudio RECOVERY</p><h3>Dexamethasone in Hospitalized Patients with Covid-19</h3></div>
+        <a class="article-link" href="https://www.nejm.org/doi/10.1056/NEJMoa2021436" target="_blank" rel="noopener noreferrer">Consultar el artículo completo ↗</a>
+      </div>
+
+      <p class="abstract-section"><strong>Background:</strong> Coronavirus disease 2019 (Covid-19) is associated with diffuse lung damage. Glucocorticoids may modulate inflammation-mediated lung injury and thereby reduce progression to respiratory failure and death.</p>
+
+      <p class="abstract-section"><strong>Methods:</strong> In this controlled, open-label trial comparing a range of possible treatments in patients who were hospitalized with Covid-19, we randomly assigned patients to receive oral or intravenous dexamethasone (at a dose of 6 mg once daily) for up to 10 days or to receive usual care alone. The primary outcome was 28-day mortality. Here, we report the final results of this assessment.</p>
+
+      <p class="abstract-section"><strong>Results:</strong> A total of 2104 patients were assigned to receive dexamethasone and 4321 to receive usual care. Overall, 482 patients (22.9%) in the dexamethasone group and 1110 patients (25.7%) in the usual care group died within 28 days after randomization (age-adjusted rate ratio, 0.83; 95% confidence interval [CI], 0.75 to 0.93; P&lt;0.001). The proportional and absolute between-group differences in mortality varied considerably according to the level of respiratory support that the patients were receiving at the time of randomization. In the dexamethasone group, the incidence of death was lower than that in the usual care group among patients receiving invasive mechanical ventilation (29.3% vs. 41.4%; rate ratio, 0.64; 95% CI, 0.51 to 0.81) and among those receiving oxygen without invasive mechanical ventilation (23.3% vs. 26.2%; rate ratio, 0.82; 95% CI, 0.72 to 0.94) but not among those who were receiving no respiratory support at randomization (17.8% vs. 14.0%; rate ratio, 1.19; 95% CI, 0.92 to 1.55).</p>
+
+      <p class="abstract-section"><strong>Conclusions:</strong> In patients hospitalized with Covid-19, the use of dexamethasone resulted in lower 28-day mortality among those who were receiving either invasive mechanical ventilation or oxygen alone at randomization but not among those receiving no respiratory support. (Funded by the Medical Research Council and National Institute for Health Research and others; RECOVERY ClinicalTrials.gov number, NCT04381936; ISRCTN number, 50189673.)</p>
+
+      <p class="citation">Horby P, Lim WS, Emberson JR, Mafham M, Bell JL, Linsell L, et al. Dexamethasone in Hospitalized Patients with Covid-19. <em>N Engl J Med.</em> 2021;384(8):693–704. doi: 10.1056/NEJMoa2021436. PMID: 32678530; PMCID: PMC7383595.</p>
+    </article>
+
+    <div class="topic-controls">
+      <button type="button" class="nav-button secondary previous-topic" hidden>Tema anterior</button>
+      <button type="button" class="nav-button next-topic">Tema siguiente</button>
+    </div>
+  </section>
+
+  <section id="exercise-2" class="topic-panel" data-index="1">
+    <div class="section-kicker">Parte II · Ejercicio 2</div>
+    <h2>Identificación de diseños de estudio</h2>
+    <div class="part-intro"><p>Después de haber trabajado el enfoque PICOT para formular correctamente una pregunta de investigación, en esta segunda parte del seminario nos centraremos en el diseño de los estudios. El objetivo es que seáis capaces de identificar qué tipo de diseño se utiliza en diferentes artículos de investigación y comprender sus características principales. Al final de la clase discutiremos las respuestas correctas.</p></div>
+    <p class="lead"><em>Este ejercicio se ha adaptado a partir de materiales de Victor J. Schoenbach, profesor de la Universidad de Carolina del Norte.</em></p>
+
+    <h3 class="subheading">1. Lee las siguientes descripciones. Identifica el diseño del estudio y comenta las fortalezas y limitaciones de cada uno.</h3>
+    <div class="scenario-list">
+      <article class="scenario-card"><span class="scenario-number">A</span><p>Se enviaron cuestionarios a una de cada 50 personas de 18 años o más incluidas en el censo de la ciudad. A cada persona se le preguntó por su edad, sexo, hábito tabáquico y síntomas respiratorios durante los siete días anteriores. Aproximadamente el 20% de los cuestionarios fueron cumplimentados y devueltos. Cerca del 10% de quienes respondieron declararon síntomas de vías respiratorias altas.</p></article>
+      <article class="scenario-card"><span class="scenario-number">B</span><p>En 1980 se incluyeron en un estudio 10.500 profesionales sanitarios sin diabetes de una determinada zona geográfica. Los nuevos casos de diabetes se identificaron mediante exploraciones cada tres años y a través de los certificados de defunción. Se calcularon las tasas de incidencia en distintos subgrupos.</p></article>
+      <article class="scenario-card"><span class="scenario-number">C</span><p>Se seleccionó del censo de una localidad una muestra aleatoria de adultos sedentarios y se examinó a cada persona para detectar enfermedad arterial coronaria. Las personas sin la enfermedad fueron asignadas aleatoriamente a un programa de ejercicio aeróbico durante dos años o a un programa de ejercicio no aeróbico durante el mismo periodo. Ambos grupos fueron evaluados cada seis meses para determinar la incidencia de enfermedad coronaria.</p></article>
+      <article class="scenario-card"><span class="scenario-number">D</span><p>Se identifican 50 pacientes con cáncer de tiroides y se les entrevista para investigar una exposición previa a radiación.</p></article>
+      <article class="scenario-card"><span class="scenario-number">E</span><p>Se entrevista sobre sus antecedentes de consumo de tabaco a pacientes ingresados por carcinoma de vejiga y a pacientes sin diagnóstico de cáncer, con el objetivo de evaluar la posible asociación entre tabaco y cáncer de vejiga.</p></article>
+    </div>
+
+    <div class="topic-controls">
+      <button type="button" class="nav-button secondary previous-topic">Tema anterior</button>
+      <button type="button" class="nav-button next-topic">Tema siguiente</button>
+    </div>
+  </section>
+
+  <section id="exercise-3" class="topic-panel" data-index="2">
+    <div class="section-kicker">Parte II · Ejercicio 3</div>
+    <h2>Preguntas sobre diferentes tipos de diseños de estudio</h2>
+    <p class="lead">En un estudio sobre el efecto de la aspirina en la aparición de infarto de miocardio se obtuvieron los siguientes resultados:</p>
+
+    <div class="data-card">
+      <table class="study-table">
+        <thead><tr><th scope="col">Grupo de estudio</th><th scope="col">Infarto</th><th scope="col">Sin infarto</th><th scope="col">Tasa de infarto por 10.000 personas</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Aspirin</th><td>104</td><td>10,933</td><td>94.2</td></tr>
+          <tr><th scope="row">Placebo</th><td>189</td><td>10,845</td><td>171.3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quiz-intro"><strong>Cómo responder:</strong><span>Las preguntas 1 y 2 tienen una única respuesta correcta. La pregunta 3 permite seleccionar más de una; marca todas las afirmaciones que consideres correctas.</span></div>
+
+    <div class="quiz-list">
+      <article class="quiz-question" data-correct="1" data-explanation="Los investigadores comparan una intervención con placebo; se trata de un diseño experimental.">
+        <p class="question-title"><span class="question-number">1</span><span>¿Qué tipo de diseño crees que se utilizó?</span></p>
+        <fieldset>
+          <label class="option"><input type="radio" name="quiz2-1" value="0"><span>Observacional, casos y controles</span></label>
+          <label class="option"><input type="radio" name="quiz2-1" value="1"><span>Experimental</span></label>
+          <label class="option"><input type="radio" name="quiz2-1" value="2"><span>Observacional, transversal</span></label>
+          <label class="option"><input type="radio" name="quiz2-1" value="3"><span>Observacional, cohortes</span></label>
+        </fieldset>
+        <div class="question-actions"><button type="button" class="check-answer">Comprobar respuesta</button><div class="feedback" role="status" aria-live="polite"></div></div>
+      </article>
+
+      <article class="quiz-question" data-correct="0" data-explanation="Participaron 22.071 personas. Es una muestra grande para detectar un evento poco frecuente, aunque su idoneidad debe justificarse formalmente mediante un cálculo del tamaño muestral.">
+        <p class="question-title"><span class="question-number">2</span><span>¿Qué dirías sobre el número de personas que participaron en el estudio?</span></p>
+        <fieldset>
+          <label class="option"><input type="radio" name="quiz2-2" value="0"><span>Parece adecuado</span></label>
+          <label class="option"><input type="radio" name="quiz2-2" value="1"><span>Demasiado pocas</span></label>
+          <label class="option"><input type="radio" name="quiz2-2" value="2"><span>Demasiadas</span></label>
+        </fieldset>
+        <div class="question-actions"><button type="button" class="check-answer">Comprobar respuesta</button><div class="feedback" role="status" aria-live="polite"></div></div>
+      </article>
+
+      <article class="quiz-question" data-correct="1,3" data-explanation="La razón de tasas es 94,2 / 171,3 ≈ 0,55, lo que supone una reducción relativa cercana al 45%. Una interpretación causal requiere asignación aleatoria y grupos comparables.">
+        <p class="question-title"><span class="question-number">3</span><span>Interpreta la relación entre el uso de aspirina y la tasa de infarto de miocardio <em>(puede haber más de una respuesta correcta)</em>.</span></p>
+        <fieldset>
+          <label class="option"><input type="checkbox" name="quiz2-3" value="0"><span>No parece que la aspirina sea eficaz para reducir los infartos.</span></label>
+          <label class="option"><input type="checkbox" name="quiz2-3" value="1"><span>Parece que la aspirina reduce el riesgo de infarto en más de un 40%.</span></label>
+          <label class="option"><input type="checkbox" name="quiz2-3" value="2"><span>El estudio podría ser observacional y, por tanto, no podemos concluir que la aspirina produzca este efecto.</span></label>
+          <label class="option"><input type="checkbox" name="quiz2-3" value="3"><span>Si los participantes fueron aleatorizados y los grupos están equilibrados, podemos concluir que la aspirina tiene un efecto causal en la reducción del riesgo de infarto.</span></label>
+        </fieldset>
+        <div class="question-actions"><button type="button" class="check-answer">Comprobar respuesta</button><div class="feedback" role="status" aria-live="polite"></div></div>
+      </article>
+    </div>
+
+    <div class="topic-controls">
+      <button type="button" class="nav-button secondary previous-topic">Tema anterior</button>
+      <button type="button" class="nav-button next-topic">Tema siguiente</button>
+    </div>
+  </section>
+
+  <section id="exercise-4" class="topic-panel" data-index="3">
+    <div class="section-kicker">Parte II · Ejercicio 4</div>
+    <h2>Preguntas sobre diseños experimentales</h2>
+    <div class="quiz-intro"><strong>Preguntas multirrespuesta:</strong><span>Cada afirmación es verdadera o falsa. Selecciona <em>todas</em> las afirmaciones verdaderas; la pregunta solo será correcta si marcas el conjunto completo.</span></div>
+
+    <div class="quiz-list">
+      <article class="quiz-question" data-correct="4" data-explanation="Un grupo control concurrente válido debe proceder de pacientes elegibles para cualquiera de las estrategias y dispuestos a ser aleatorizados. Las demás propuestas introducen diferencias sistemáticas entre los grupos.">
+        <p class="question-title"><span class="question-number">1</span><span>Al evaluar un nuevo tratamiento médico, un grupo control adecuado puede estar formado por pacientes que:</span></p>
+        <fieldset>
+          <label class="option"><input type="checkbox" name="quiz1-1" value="0"><span>son tratados en un hospital diferente</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-1" value="1"><span>son tratados por otro médico durante el mismo periodo</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-1" value="2"><span>no son candidatos adecuados para el nuevo tratamiento</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-1" value="3"><span>no están dispuestos a recibir el nuevo tratamiento</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-1" value="4"><span>aceptan ser aleatorizados</span></label>
+        </fieldset>
+        <div class="question-actions"><button type="button" class="check-answer">Comprobar respuesta</button><div class="feedback" role="status" aria-live="polite"></div></div>
+      </article>
+
+      <article class="quiz-question" data-correct="0,3" data-explanation="La asignación aleatoria facilita la ocultación de la secuencia durante la inclusión y hace que los grupos sean comparables en promedio. No selecciona el mejor tratamiento para cada persona ni convierte la muestra en una muestra aleatoria de la población.">
+        <p class="question-title"><span class="question-number">2</span><span>En un experimento que compara dos tratamientos, los participantes se asignan mediante números aleatorios para que:</span></p>
+        <fieldset>
+          <label class="option"><input type="checkbox" name="quiz1-2" value="0"><span>al decidir la inclusión de una persona en el ensayo, no sepamos qué tratamiento recibirá</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-2" value="1"><span>cada participante reciba el tratamiento que mejor se adapte a sus características</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-2" value="2"><span>la muestra pueda atribuirse a una población conocida</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-2" value="3"><span>los dos grupos sean similares, salvo por el tratamiento</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-2" value="4"><span>los tratamientos puedan asignarse según las características del participante</span></label>
+        </fieldset>
+        <div class="question-actions"><button type="button" class="check-answer">Comprobar respuesta</button><div class="feedback" role="status" aria-live="polite"></div></div>
+      </article>
+
+      <article class="quiz-question" data-correct="2,4" data-explanation="El doble enmascaramiento significa que los participantes no conocen el tratamiento asignado y que quien evalúa el resultado tampoco lo conoce. Los participantes sí deben saber que están formando parte de un ensayo.">
+        <p class="question-title"><span class="question-number">3</span><span>En un ensayo clínico doble ciego:</span></p>
+        <fieldset>
+          <label class="option"><input type="checkbox" name="quiz1-3" value="0"><span>los pacientes no saben que participan en un ensayo</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-3" value="1"><span>cada paciente recibe un placebo</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-3" value="2"><span>los pacientes no saben qué tratamiento reciben</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-3" value="3"><span>cada paciente recibe ambos tratamientos</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-3" value="4"><span>el profesional que evalúa los resultados no sabe qué tratamiento recibe cada paciente</span></label>
+        </fieldset>
+        <div class="question-actions"><button type="button" class="check-answer">Comprobar respuesta</button><div class="feedback" role="status" aria-live="polite"></div></div>
+      </article>
+
+      <article class="quiz-question" data-correct="0,5" data-explanation="El análisis principal debe seguir el principio de intención de tratar: los niños permanecen en el grupo al que fueron aleatorizados aunque rechacen la vacuna. Desde el punto de vista ético, antes de la aleatorización debería haberse obtenido el consentimiento para cualquiera de las dos asignaciones posibles.">
+        <p class="question-title"><span class="question-number">4</span><span>En un ensayo de una nueva vacuna, los niños fueron asignados aleatoriamente a un grupo de <em>vacuna</em> o a un grupo <em>control</em>. Al grupo de vacuna se le ofreció la vacunación, que aceptaron dos tercios de sus integrantes:</span></p>
+        <fieldset>
+          <label class="option"><input type="checkbox" name="quiz1-4" value="0"><span>quienes rechazaron la vacunación deben permanecer incluidos en el grupo de vacuna</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-4" value="1"><span>solo los niños que aceptaron vacunarse deben compararse con el grupo control</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-4" value="2"><span>quienes rechazaron la vacunación deben excluirse</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-4" value="3"><span>quienes rechazaron la vacunación deben incluirse en el grupo control</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-4" value="4"><span>el ensayo carece de utilidad porque no todos los integrantes del grupo de tratamiento se vacunaron</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-4" value="5"><span>la aleatorización debería haberse realizado una vez que los participantes hubieran aceptado recibir cualquiera de las dos estrategias, vacuna o control</span></label>
+        </fieldset>
+        <div class="question-actions"><button type="button" class="check-answer">Comprobar respuesta</button><div class="feedback" role="status" aria-live="polite"></div></div>
+      </article>
+
+      <article class="quiz-question" data-correct="1,3,4" data-explanation="Los placebos permiten enmascarar el tratamiento, controlar la respuesta producida por el hecho de recibir atención y proporcionar una comparación adecuada frente a la ausencia de tratamiento activo. No corrigen un diseño no aleatorizado ni son necesarios únicamente porque dos tratamientos activos tengan un aspecto similar.">
+        <p class="question-title"><span class="question-number">5</span><span>Los placebos son útiles en los ensayos clínicos:</span></p>
+        <fieldset>
+          <label class="option"><input type="checkbox" name="quiz1-5" value="0"><span>para garantizar la comparabilidad en ensayos no aleatorizados</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-5" value="1"><span>porque pueden ayudar a ocultar a los evaluadores el tratamiento recibido</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-5" value="2"><span>cuando se comparan dos tratamientos activos de aspecto similar</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-5" value="3"><span>cuando un tratamiento activo se compara con la ausencia de tratamiento</span></label>
+          <label class="option"><input type="checkbox" name="quiz1-5" value="4"><span>porque el hecho de recibir tratamiento puede producir por sí mismo una respuesta</span></label>
+        </fieldset>
+        <div class="question-actions"><button type="button" class="check-answer">Comprobar respuesta</button><div class="feedback" role="status" aria-live="polite"></div></div>
+      </article>
+    </div>
+
+    <p class="source-note">Fuente del ejercicio 4: Bland M. <em>An Introduction to Medical Statistics</em>, 2.ª ed. Nueva York: Oxford University Press; 1995. Redacción adaptada en la aplicación original del seminario.</p>
+
+    <div class="topic-controls">
+      <button type="button" class="nav-button secondary previous-topic">Tema anterior</button>
+      <button type="button" class="nav-button next-topic" hidden>Tema siguiente</button>
+    </div>
+  </section>
+</main>
+</div>
+<script>
+(function () {
+  "use strict";
+
+  const storageKey = "seminar2-study-design-v2";
+  const panels = Array.from(document.querySelectorAll(".topic-panel"));
+  const topicLinks = Array.from(document.querySelectorAll(".topic-link"));
+  const questions = Array.from(document.querySelectorAll(".quiz-question"));
+  let state = { currentTopic: "exercise-1", answers: {}, completed: [] };
+
+  function arraysEqual(a, b) {
+    if (a.length !== b.length) return false;
+    return a.every((value, index) => value === b[index]);
+  }
+
+  function selectedValues(question) {
+    return Array.from(question.querySelectorAll("input:checked"))
+      .map(input => input.value)
+      .sort();
+  }
+
+  function questionId(question) {
+    const input = question.querySelector("input");
+    return input ? input.name : "";
+  }
+
+  function saveState() {
+    try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (error) {}
+  }
+
+  function loadState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey));
+      if (saved && typeof saved === "object") {
+        state.currentTopic = saved.currentTopic || state.currentTopic;
+        state.answers = saved.answers || {};
+        state.completed = Array.isArray(saved.completed) ? saved.completed : [];
+      }
+    } catch (error) {}
+
+    questions.forEach(question => {
+      const id = questionId(question);
+      const savedValues = state.answers[id] || [];
+      question.querySelectorAll("input").forEach(input => {
+        input.checked = savedValues.includes(input.value);
+      });
+      if (state.completed.includes(id)) {
+        showFeedback(question, true);
+      }
+    });
+  }
+
+  function showFeedback(question, correct) {
+    const feedback = question.querySelector(".feedback");
+    const explanation = question.dataset.explanation || "";
+    question.classList.toggle("is-correct", correct);
+    question.classList.toggle("is-incorrect", !correct);
+    feedback.className = "feedback " + (correct ? "correct" : "incorrect");
+    feedback.textContent = correct ? "Correcto. " + explanation : "No es correcto. Comprueba que has seleccionado el conjunto completo de afirmaciones verdaderas.";
+  }
+
+  function updateProgress() {
+    const completed = new Set(state.completed);
+    const count = completed.size;
+    const total = questions.length;
+    document.getElementById("progress-count").textContent = count + " / " + total;
+    document.getElementById("progress-fill").style.width = (100 * count / total) + "%";
+
+    topicLinks.forEach(link => {
+      const panel = document.getElementById(link.dataset.topic);
+      const ids = Array.from(panel.querySelectorAll(".quiz-question")).map(questionId);
+      const isComplete = ids.length > 0 && ids.every(id => completed.has(id));
+      link.classList.toggle("complete", isComplete);
+    });
+  }
+
+  function showTopic(topicId, updateHash) {
+    const fallback = panels[0].id;
+    const validId = panels.some(panel => panel.id === topicId) ? topicId : fallback;
+    panels.forEach(panel => panel.classList.toggle("active", panel.id === validId));
+    topicLinks.forEach(link => {
+      const active = link.dataset.topic === validId;
+      link.classList.toggle("active", active);
+      link.setAttribute("aria-current", active ? "step" : "false");
+    });
+    state.currentTopic = validId;
+    saveState();
+    if (updateHash) history.replaceState(null, "", "#" + validId);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function adjacentTopic(direction) {
+    const current = panels.findIndex(panel => panel.id === state.currentTopic);
+    const target = Math.max(0, Math.min(panels.length - 1, current + direction));
+    showTopic(panels[target].id, true);
+  }
+
+  topicLinks.forEach(link => link.addEventListener("click", () => showTopic(link.dataset.topic, true)));
+  document.querySelectorAll(".next-topic").forEach(button => button.addEventListener("click", () => adjacentTopic(1)));
+  document.querySelectorAll(".previous-topic").forEach(button => button.addEventListener("click", () => adjacentTopic(-1)));
+
+  questions.forEach(question => {
+    question.querySelectorAll("input").forEach(input => input.addEventListener("change", () => {
+      const id = questionId(question);
+      state.answers[id] = selectedValues(question);
+      question.classList.remove("is-correct", "is-incorrect");
+      const feedback = question.querySelector(".feedback");
+      feedback.className = "feedback";
+      feedback.textContent = "";
+      saveState();
+    }));
+
+    question.querySelector(".check-answer").addEventListener("click", () => {
+      const id = questionId(question);
+      const selected = selectedValues(question);
+      const correct = question.dataset.correct.split(",").map(value => value.trim()).sort();
+      const feedback = question.querySelector(".feedback");
+
+      if (selected.length === 0) {
+        feedback.className = "feedback incorrect";
+        feedback.textContent = "Selecciona al menos una opción antes de comprobar la respuesta.";
+        return;
+      }
+
+      const isCorrect = arraysEqual(selected, correct);
+      state.answers[id] = selected;
+      state.completed = state.completed.filter(item => item !== id);
+      if (isCorrect) state.completed.push(id);
+      showFeedback(question, isCorrect);
+      updateProgress();
+      saveState();
+    });
+  });
+
+  document.getElementById("reset-course").addEventListener("click", () => {
+    state = { currentTopic: "exercise-1", answers: {}, completed: [] };
+    questions.forEach(question => {
+      question.querySelectorAll("input").forEach(input => { input.checked = false; });
+      question.classList.remove("is-correct", "is-incorrect");
+      const feedback = question.querySelector(".feedback");
+      feedback.className = "feedback";
+      feedback.textContent = "";
+    });
+    try { localStorage.removeItem(storageKey); } catch (error) {}
+    updateProgress();
+    showTopic("exercise-1", true);
+  });
+
+  loadState();
+  updateProgress();
+  const hashTopic = window.location.hash.replace(/^#/, "");
+  showTopic(hashTopic || state.currentTopic, false);
+})();
+</script>
+
+
+
+<!-- code folding -->
+
+
+
+</body>
+</html>
